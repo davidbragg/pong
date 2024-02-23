@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cdw023an024n2"]
+[gd_scene load_steps=7 format=3 uid="uid://cdw023an024n2"]
 
 [ext_resource type="Texture2D" uid="uid://ubow4lf5guwo" path="res://icon.svg" id="1_imxgk"]
 [ext_resource type="Script" path="res://scripts/Ball.gd" id="1_q2u2m"]
@@ -6,16 +6,57 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_k1wc1"]
 radius = 24.5153
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m4ork"]
+size = Vector2(1152, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_suw7x"]
+size = Vector2(1152, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gn76s"]
+size = Vector2(32, 520)
+
+[node name="GameBoard" type="Node2D"]
 
 [node name="Ball" type="RigidBody2D" parent="."]
 position = Vector2(347, 286)
 script = ExtResource("1_q2u2m")
 metadata/_edit_group_ = true
 
-[node name="Collision" type="CollisionShape2D" parent="Ball"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball"]
 shape = SubResource("CircleShape2D_k1wc1")
 
 [node name="Sprite" type="Sprite2D" parent="Ball"]
 scale = Vector2(0.28125, 0.28125)
 texture = ExtResource("1_imxgk")
+
+[node name="BottomBoundary" type="Area2D" parent="."]
+position = Vector2(0, 648)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomBoundary"]
+position = Vector2(576, -32)
+shape = SubResource("RectangleShape2D_m4ork")
+
+[node name="TopBoundary" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopBoundary"]
+position = Vector2(576, 32)
+shape = SubResource("RectangleShape2D_suw7x")
+
+[node name="LeftBoundary" type="Area2D" parent="."]
+position = Vector2(0, 64)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftBoundary"]
+position = Vector2(16, 260)
+shape = SubResource("RectangleShape2D_gn76s")
+
+[node name="RightBoundary" type="Area2D" parent="."]
+position = Vector2(1120, 320)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightBoundary"]
+position = Vector2(16, 4)
+shape = SubResource("RectangleShape2D_gn76s")
+
+[connection signal="body_entered" from="BottomBoundary" to="Ball" method="_on_bottom_boundary_body_entered"]
+[connection signal="body_entered" from="TopBoundary" to="Ball" method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="LeftBoundary" to="Ball" method="_on_left_boundary_body_entered"]
+[connection signal="body_entered" from="RightBoundary" to="Ball" method="_on_right_boundary_body_entered"]
