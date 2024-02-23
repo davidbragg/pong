@@ -1,2 +1,2 @@
 # pong
-A constrained PoC clone of Ping
+A constrained PoC clone of Pong.
