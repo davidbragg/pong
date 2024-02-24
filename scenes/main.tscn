@@ -1,0 +1,86 @@
+[gd_scene load_steps=8 format=3 uid="uid://cdw023an024n2"]
+
+[ext_resource type="Script" path="res://scripts/Ball.gd" id="1_1ckgy"]
+[ext_resource type="Texture2D" uid="uid://ubow4lf5guwo" path="res://images/icon.svg" id="2_vuypm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k1wc1"]
+radius = 24.5153
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4jgkj"]
+size = Vector2(1152, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_njlvc"]
+size = Vector2(1152, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_12qk4"]
+size = Vector2(32, 520)
+
+[sub_resource type="LabelSettings" id="LabelSettings_fbhwn"]
+font_size = 46
+
+[node name="GameBoard" type="Node2D"]
+
+[node name="Ball" type="RigidBody2D" parent="."]
+position = Vector2(347, 286)
+script = ExtResource("1_1ckgy")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball"]
+shape = SubResource("CircleShape2D_k1wc1")
+
+[node name="Sprite" type="Sprite2D" parent="Ball"]
+scale = Vector2(0.28125, 0.28125)
+texture = ExtResource("2_vuypm")
+
+[node name="PlayArea" type="Node2D" parent="."]
+position = Vector2(0, 648)
+
+[node name="BottomBoundary" type="Area2D" parent="PlayArea"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/BottomBoundary"]
+position = Vector2(576, -32)
+shape = SubResource("RectangleShape2D_4jgkj")
+
+[node name="TopBoundary" type="Area2D" parent="PlayArea"]
+position = Vector2(0, -648)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/TopBoundary"]
+position = Vector2(576, 32)
+shape = SubResource("RectangleShape2D_njlvc")
+
+[node name="LeftBoundary" type="Area2D" parent="PlayArea"]
+position = Vector2(0, -584)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/LeftBoundary"]
+position = Vector2(16, 260)
+shape = SubResource("RectangleShape2D_12qk4")
+
+[node name="RightBoundary" type="Area2D" parent="PlayArea"]
+position = Vector2(1120, -328)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/RightBoundary"]
+position = Vector2(16, 4)
+shape = SubResource("RectangleShape2D_12qk4")
+
+[node name="Scoreboard" type="Node2D" parent="."]
+
+[node name="Player1Score" type="Label" parent="Scoreboard"]
+unique_name_in_owner = true
+offset_left = 352.0
+offset_right = 383.0
+offset_bottom = 64.0
+text = "0"
+label_settings = SubResource("LabelSettings_fbhwn")
+
+[node name="Player2Score" type="Label" parent="Scoreboard"]
+unique_name_in_owner = true
+offset_left = 768.0
+offset_right = 820.0
+offset_bottom = 64.0
+text = "0"
+label_settings = SubResource("LabelSettings_fbhwn")
+
+[connection signal="body_entered" from="PlayArea/BottomBoundary" to="Ball" method="_on_bottom_boundary_body_entered"]
+[connection signal="body_entered" from="PlayArea/TopBoundary" to="Ball" method="_on_top_boundary_body_entered"]
+[connection signal="body_entered" from="PlayArea/LeftBoundary" to="Ball" method="_on_left_boundary_body_entered"]
+[connection signal="body_entered" from="PlayArea/RightBoundary" to="Ball" method="_on_right_boundary_body_entered"]
