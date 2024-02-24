@@ -37,13 +37,13 @@ func _on_bottom_boundary_body_entered(_body:Node2D):
 
 
 #Handle X direction collision
-func _on_right_boundary_body_entered(body:Node2D):
+func _on_right_boundary_body_entered(_body:Node2D):
 	x_direction *= -1
 	score[0] += 1
 	p1score.text = str(score[0])
 
 
-func _on_left_boundary_body_entered(body:Node2D):
+func _on_left_boundary_body_entered(_body:Node2D):
 	x_direction *= -1
 	score[1] += 1
 	p2score.text = str(score[1])
