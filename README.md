@@ -4,7 +4,7 @@ This is a very stripped down clone of Pong built with the intention of building 
 
 # Game Play
 
-Single player only. The left paddle is player controlled and can be moved with the `up` and `down` arrows on the keyboard. The `space` bar will "serve" the ball. The ball will remain in play until a goal. The ball will reset to the start position and wait for the player to "server" again.
+Single player only. The left paddle is player controlled and can be moved with the `up` and `down` arrows on the keyboard. The `space` bar will serve the ball. The ball will remain in play until a goal. The ball will reset to the start position and wait for the player to serve again.
 
 # Limitations
 
