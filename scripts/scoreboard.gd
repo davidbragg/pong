@@ -6,16 +6,15 @@ var score = [0, 0]
 @onready var ball = %Ball
 
 func _ready():
-	ball.connect("p1goal", Callable(self,"_on_p1goal"))
-	ball.connect("p2goal", Callable(self,"_on_p2goal"))
+	ball.connect("goal", Callable(self,"_on_goal"))
 
-func _process(_delta):
-	pass
+func _on_goal(collider):
+	print("collider: ", collider)
+	if collider == "BoundaryLeft":
+		score[1] += 1
+	else:
+		score[0] += 1
 
-func _on_p1goal():
-	score[0] += 1
 	p1text.text = str(score[0])
-
-func _on_p2goal():
-	score[1] += 1
 	p2text.text = str(score[1])
+
